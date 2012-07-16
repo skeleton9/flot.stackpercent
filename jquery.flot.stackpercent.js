@@ -84,13 +84,18 @@ Modified by skeleton9 2012-5-3 to support percentage stack
 					var num = _data[i].data.length;
 					for(var j=0;j<num;j++)
 					{
+						var value = 0;
+						if(_data[i].data[j][1] != null)
+						{
+							value = _data[i].data[j][1];
+						}
 						if(sums[_data[i].data[j][0]+""])
 						{
-							sums[_data[i].data[j][0]+""] += _data[i].data[j][1];
+							sums[_data[i].data[j][0]+""] += value;
 						}
 						else
 						{
-							sums[_data[i].data[j][0]+""] = _data[i].data[j][1];
+							sums[_data[i].data[j][0]+""] = value;
 						}
 						 
 					}
