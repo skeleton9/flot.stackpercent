@@ -78,26 +78,33 @@ Modified by skeleton9 2012-5-3 to support percentage stack
 			var sums = {};
 			if(data_len > 0)
 			{
-				//caculate summary
-				for(var i=0;i<data_len;i++)
-				{
-					var num = _data[i].data.length;
-					for(var j=0;j<num;j++)
+				//Ignore the series unless stackpercent = true
+				//This edit allows multiple graph types - Line Charts to be placed
+				//over stack percent charts.
+				//
+				//See http://jsfiddle.net/AuKzP/6/ for example.
+				if (_data[i].stackpercent) {
+					//caculate summary
+					for(var i=0;i<data_len;i++)
 					{
-						var value = 0;
-						if(_data[i].data[j][1] != null)
+						var num = _data[i].data.length;
+						for(var j=0;j<num;j++)
 						{
-							value = _data[i].data[j][1];
+							var value = 0;
+							if(_data[i].data[j][1] != null)
+							{
+								value = _data[i].data[j][1];
+							}
+							if(sums[_data[i].data[j][0]+""])
+							{
+								sums[_data[i].data[j][0]+""] += value;
+							}
+							else
+							{
+								sums[_data[i].data[j][0]+""] = value;
+							}
+							 
 						}
-						if(sums[_data[i].data[j][0]+""])
-						{
-							sums[_data[i].data[j][0]+""] += value;
-						}
-						else
-						{
-							sums[_data[i].data[j][0]+""] = value;
-						}
-						 
 					}
 				}
 			}
