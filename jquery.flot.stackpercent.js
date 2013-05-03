@@ -81,7 +81,7 @@
 			var value_idx = 1;
 			if (s.bars && s.bars.horizontal && s.bars.horizontal === true) {
 				key_idx = 1;
-				var value_idx = 0;
+				value_idx = 0;
 			}
 
 			for (var i = 0; i < datapoints.points.length; i += 3) {
