@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Flot Examples</title>
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="../excanvas.min.js"></script><![endif]-->
+    <script language="javascript" type="text/javascript" src="http://www.flotcharts.org/javascript/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="http://www.flotcharts.org/javascript/jquery.flot.min.js"></script>
+	<script language="javascript" type="text/javascript" src="https://raw.github.com/skeleton9/flot.tooltip/master/js/jquery.flot.tooltip_0.4.4.js"></script>
+    <script language="javascript" type="text/javascript" src="../jquery.flot.stackpercent.js"></script>
+	
+	
+	
+ </head>
+    <body>
+    <h1>Flot Examples: Stackpercent with lines</h1>
+	<div id="legends" style="width:600px;"></div>
+	<div id="placeholder" style="width:600px;height:300px;"></div>
+
+<script id="source">
+$(function () {
+	var d1 = [];
+	for (var i = 0; i <= 10; i += 1) {
+		d1.push([i, parseInt(Math.random() * 30)]);
+	}
+
+	var d2 = [];
+	for (var i = 0; i <= 10; i += 1) {
+		d2.push([i, parseInt(Math.random() * 30)]);
+	}
+
+	var d3 = [];
+	for (var i = 0; i <= 10; i += 1) {
+		d3.push([i, parseInt(Math.random() * 30)]);
+	}
+	
+	var d4 = [];
+	for (var i = 0; i <= 10; i += 1) {
+		d4.push([i, parseInt(Math.random() * 30) + 200]);
+	}
+	
+    var data = [
+		{"label":"Apple", "data":d1, "color":"#B41722"},
+		{"label":"Samsang", "data":d2, "color":"#E78800"},
+		{"label":"HTC", "data":d3, "color":"#83BA4F"},
+		// this will not be stacked, and show as line
+		{"label":"Search", "data":d4, "color":"#afd8f8",
+			stackpercent : null,
+			yaxis: 2,
+			lines:{show: true},
+			bars: false,
+			points:{show:true, symbol: "circle"}
+		},
+	];
+
+    $.plot($("#placeholder"), data, {
+		grid : {
+			hoverable : true
+		},
+        series: {
+            stackpercent: true,
+            bars: {
+				show: true,
+				barWidth: 0.6,
+				fillColor: {
+					colors:[{opacity: 1},{opacity: 1}]
+				},
+				align: "center" 
+			}
+        },
+		tooltip: true,
+		tooltipOpts: {
+			content: "x: %x, y: %y , %p.2%"
+		},
+		legend : {
+			container : "#legends",
+			noColumns : 4
+		},
+        xaxis: {tickSize : 1},
+		yaxis: [{max:100}]
+    });
+	
+
+});
+</script>
+
+ </body>
+</html>
