@@ -77,45 +77,30 @@
             var newPoints = [];
 			
 			
-			
+			var key_idx = 0;
+			var value_idx = 1;
 			if (s.bars && s.bars.horizontal && s.bars.horizontal === true) {
-				for (var i = 0; i < datapoints.points.length; i += 3) {
-					// note that the values need to be turned into absolute y-values.
-					// in other words, if you were to stack (x, y1), (x, y2), and (x, y3),
-					// (each from different series, which is where stackBases comes in),
-					// you'd want the new points to be (x, y1, 0), (x, y1+y2, y1), (x, y1+y2+y3, y1+y2)
-					// generally, (x, thisValue + (base up to this point), + (base up to this point))
-					if (!stackBases[datapoints.points[i + 1]]) {
-						stackBases[datapoints.points[i + 1]] = 0;
-					}
-					newPoints[i + 1] = datapoints.points[i + 1];
-					newPoints[i] = datapoints.points[i] + stackBases[datapoints.points[i + 1]];
-					newPoints[i + 2] = stackBases[datapoints.points[i + 1]];
-					stackBases[datapoints.points[i + 1]] += datapoints.points[i];
-					// change points to percentage values
-					// you may need to set yaxis:{ max = 100 }
-					newPoints[i] = newPoints[i] * 100 / stackSums[newPoints[i + 1] + ""];
-					newPoints[i + 2] = newPoints[i + 2] * 100 / stackSums[newPoints[i + 1] + ""];
+				key_idx = 1;
+				var value_idx = 0;
+			}
+
+			for (var i = 0; i < datapoints.points.length; i += 3) {
+				// note that the values need to be turned into absolute y-values.
+				// in other words, if you were to stack (x, y1), (x, y2), and (x, y3),
+				// (each from different series, which is where stackBases comes in),
+				// you'd want the new points to be (x, y1, 0), (x, y1+y2, y1), (x, y1+y2+y3, y1+y2)
+				// generally, (x, thisValue + (base up to this point), + (base up to this point))
+				if (!stackBases[datapoints.points[i + key_idx]]) {
+					stackBases[datapoints.points[i + key_idx]] = 0;
 				}
-			} else {
-				for (var i = 0; i < datapoints.points.length; i += 3) {
-					// note that the values need to be turned into absolute y-values.
-					// in other words, if you were to stack (x, y1), (x, y2), and (x, y3),
-					// (each from different series, which is where stackBases comes in),
-					// you'd want the new points to be (x, y1, 0), (x, y1+y2, y1), (x, y1+y2+y3, y1+y2)
-					// generally, (x, thisValue + (base up to this point), + (base up to this point))
-					if (!stackBases[datapoints.points[i]]) {
-						stackBases[datapoints.points[i]] = 0;
-					}
-					newPoints[i] = datapoints.points[i];
-					newPoints[i + 1] = datapoints.points[i + 1] + stackBases[datapoints.points[i]];
-					newPoints[i + 2] = stackBases[datapoints.points[i]];
-					stackBases[datapoints.points[i]] += datapoints.points[i + 1];
-					// change points to percentage values
-					// you may need to set yaxis:{ max = 100 }
-					newPoints[i + 1] = newPoints[i + 1] * 100 / stackSums[newPoints[i] + ""];
-					newPoints[i + 2] = newPoints[i + 2] * 100 / stackSums[newPoints[i] + ""];
-				}
+				newPoints[i + key_idx] = datapoints.points[i + key_idx];
+				newPoints[i + value_idx] = datapoints.points[i + value_idx] + stackBases[datapoints.points[i + key_idx]];
+				newPoints[i + 2] = stackBases[datapoints.points[i + key_idx]];
+				stackBases[datapoints.points[i + key_idx]] += datapoints.points[i + value_idx];
+				// change points to percentage values
+				// you may need to set yaxis:{ max = 100 }
+				newPoints[i + value_idx] = newPoints[i + value_idx] * 100 / stackSums[newPoints[i + key_idx] + ""];
+				newPoints[i + 2] = newPoints[i + 2] * 100 / stackSums[newPoints[i + key_idx] + ""];
 			}
 
             datapoints.points = newPoints;
