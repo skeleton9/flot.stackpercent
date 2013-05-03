@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Flot Examples</title>
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="../excanvas.min.js"></script><![endif]-->
+    <script language="javascript" type="text/javascript" src="http://www.flotcharts.org/javascript/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="http://www.flotcharts.org/javascript/jquery.flot.min.js"></script>
+	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/jquery.flot.stack.js"></script>
+	<script language="javascript" type="text/javascript" src="../jquery.flot.tooltip_0.4.4.js"></script>
+    <script language="javascript" type="text/javascript" src="../jquery.flot.stackpercent.js"></script>
+	
+	
+ </head>
+    <body>
+    <h1>Flot Examples: Stackpercent Horizontal</h1>
+
+	<td><div id="legends" style="width:600px;"></div></td>
+	<div id="placeholder" style="width:600px;height:300px;"></div>
+	
+	<h1>Flot Examples: Stackpercent </h1>
+	
+	<td><div id="legends2" style="width:600px;"></div></td>
+	<div id="placeholder2" style="width:600px;height:300px;"></div>
+
+<script id="source">
+$(function () {
+
+	var data = [
+		{"label":"Apple", "data": [[12,1], [10, 2], [7,3]], "color":"#B41722"},
+		{"label":"Samsang", "data":[[11,1], [9, 2], [8,3]], "color":"#E78800"},
+		{"label":"HTC", "data":[[10,1], [6, 2], [5,3]], "color":"#83BA4F"}
+	];
+	
+	var data2 = [
+		{"label":"Apple", "data": [[1,12], [2, 10], [3,7]], "color":"#B41722"},
+		{"label":"Samsang", "data":[[1,11], [2, 9], [3,8]], "color":"#E78800"},
+		{"label":"HTC", "data":[[1,10], [2, 6], [3,5]], "color":"#83BA4F"}
+	];
+	
+	
+	$.plot($("#placeholder"), data, {
+		grid : {
+			hoverable : true
+		},
+        series: {
+            stackpercent: true,
+            bars: {
+				show: true,
+				barWidth: 0.6,
+				fillColor: {
+					colors:[{opacity: 1},{opacity: 1}]
+				},
+				align: "center",
+				horizontal:true
+			}
+        },
+		legend : {
+			container : "#legends",
+			noColumns : 3
+		},
+		tooltip: true,
+		tooltipOpts: {
+			content: "%s (x: %x, y: %y) %p.2%"
+		},
+		yaxis : {tickSize: 1},
+		xaxis : {max:100}
+    });
+	
+	$.plot($("#placeholder2"), data2, {
+		grid : {
+			hoverable : true
+		},
+        series: {
+            stackpercent: true,
+            bars: {
+				show: true,
+				barWidth: 0.6,
+				fillColor: {
+					colors:[{opacity: 1},{opacity: 1}]
+				},
+				align: "center",
+			}
+        },
+		legend : {
+			container : "#legends2",
+			noColumns : 3
+		},
+		tooltip: true,
+		tooltipOpts: {
+			content: "%s (x: %x, y: %y) %p.2%"
+		},
+		yaxis : {max:100},
+		xaxis : {tickSize: 1}
+    });
+});
+</script>
+
+ </body>
+</html>
