@@ -191,39 +191,43 @@
 		}
 		
 		//calculate summary
-		function getStackSums(_data)
-		{
-			var data_len = _data.length;
-			var sums = {};
-			if(data_len > 0)
-			{
-				//caculate summary
-				for(var i=0;i<data_len;i++)
-				{
-					_data[i].percents = [];
-					var num = _data[i].data.length;
-					for(var j=0;j<num;j++)
-					{
-						if(sums[_data[i].data[j][0]+""])
-						{
-							sums[_data[i].data[j][0]+""] += _data[i].data[j][1];
+        function getStackSums(_data) {
+            var data_len = _data.length;
+            var sums = {};
+            if (data_len > 0) {
+                //caculate summary
+                for (var i = 0; i < data_len; i++) {
+                    if (_data[i].stackpercent || _data[i].stack) {
+						var key_idx = 0;
+						var value_idx = 1;
+						if (_data[i].bars && _data[i].bars.horizontal && _data[i].bars.horizontal === true) {
+							key_idx = 1;
+							value_idx = 0;
 						}
-						else
-						{
-							sums[_data[i].data[j][0]+""] = _data[i].data[j][1];
-						}
-						 
-					}
-				}
-			}
-			return sums;
-		}
+                        var num = _data[i].data.length;
+                        for (var j = 0; j < num; j++) {
+                            var value = 0;
+                            if (_data[i].data[j][1] != null) {
+                                value = _data[i].data[j][value_idx];
+                            }
+                            if (sums[_data[i].data[j][key_idx] + ""]) {
+                                sums[_data[i].data[j][key_idx] + ""] += value;
+                            } else {
+                                sums[_data[i].data[j][key_idx] + ""] = value;
+                            }
+
+                        }
+                    }
+                }
+            }
+            return sums;
+        }
     }
     
     $.plot.plugins.push({
         init: init,
         options: options,
         name: 'tooltip',
-        version: '0.4.4'
+        version: '0.5'
     });
 })(jQuery);

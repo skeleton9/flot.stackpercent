@@ -6,7 +6,8 @@
     <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="../excanvas.min.js"></script><![endif]-->
     <script language="javascript" type="text/javascript" src="http://www.flotcharts.org/javascript/jquery.min.js"></script>
     <script language="javascript" type="text/javascript" src="http://www.flotcharts.org/javascript/jquery.flot.min.js"></script>
-	<script language="javascript" type="text/javascript" src="https://raw.github.com/skeleton9/flot.tooltip/master/js/jquery.flot.tooltip_0.4.4.js"></script>
+	<script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.flot.stack.js"></script>
+	<script language="javascript" type="text/javascript" src="../jquery.flot.tooltip_0.5.js"></script>
     <script language="javascript" type="text/javascript" src="../jquery.flot.stackpercent.js"></script>
 	
  </head>
@@ -17,7 +18,8 @@
 
 	<div id="placeholder" style="width:600px;height:300px;"></div>
 
-	<div id="data"></div>
+	<input type='button' value='stack' id='btn-stack'>
+	<input type='button' value='stack percentage' id='btn-percent'>
 <script id="source">
 $(function () {
 	var d1 = [];
@@ -41,13 +43,13 @@ $(function () {
 		{"label":"HTC", "data":d3, "color":"#83BA4F"}
 	];
 	
-	
-	$.plot($("#placeholder"), data, {
+	var options = {
 		grid : {
 			hoverable : true
 		},
         series: {
-            stackpercent: true,
+            stack: false,
+			stackpercent : true,
             bars: { show: true, barWidth: 0.6, fillColor: {colors:[{opacity: 1},{opacity: 1}]}, align: "center" }
         },
 		legend : {
@@ -56,11 +58,27 @@ $(function () {
 		},
 		tooltip: true,
 		tooltipOpts: {
-			content: "x: %x, y: %y , %p.2%"
+			content: "<b>%s</b> : %y (%p.2%)"
 		},
         xaxis: {tickSize : 1},
         yaxis: {max:100}
-    });
+    };
+	
+	$.plot($("#placeholder"), data, options);
+	
+	$("#btn-stack").click(function(){
+		options.series.stack = true;
+		options.series.stackpercent = null;
+		options.yaxis = {};
+		$.plot($("#placeholder"), data, options);
+	});
+	
+	$("#btn-percent").click(function(){
+		options.series.stack = false;
+		options.series.stackpercent = true;
+		options.yaxis = { max:100 };
+		$.plot($("#placeholder"), data, options);
+	});
 });
 </script>
 
