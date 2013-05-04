@@ -46,13 +46,15 @@ $(function () {
 
 });
 ```
+It will create a chart like this:
 
 ![example chart](examples/basic_example.jpg)
 
 And it can be horizontal:
+
 ![horizontal example](examples/horizontal.jpg)
 
-You can disable a series's stackpercent so you can display other type of charts with it.
+You can disable a series's stackpercent by setting its own `stackpercent : null`, so you can display other type of charts with it.
 
 ![with_line example](examples/with_line.jpg)
 
