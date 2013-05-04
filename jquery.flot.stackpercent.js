@@ -31,6 +31,8 @@
 					var sum = stackSums[data[j][key_idx] + ""];
 					if (sum > 0) {
 						series.percents.push(data[j][value_idx] * 100 / sum);
+					} else {
+						series.percents.push(0);
 					}
 				}
 			}
@@ -99,8 +101,13 @@
 				stackBases[datapoints.points[i + key_idx]] += datapoints.points[i + value_idx];
 				// change points to percentage values
 				// you may need to set yaxis:{ max = 100 }
-				newPoints[i + value_idx] = newPoints[i + value_idx] * 100 / stackSums[newPoints[i + key_idx] + ""];
-				newPoints[i + 2] = newPoints[i + 2] * 100 / stackSums[newPoints[i + key_idx] + ""];
+				if ( stackSums[newPoints[i+key_idx]+""] > 0 ){
+					newPoints[i + value_idx] = newPoints[i + value_idx] * 100 / stackSums[newPoints[i + key_idx] + ""];
+					newPoints[i + 2] = newPoints[i + 2] * 100 / stackSums[newPoints[i + key_idx] + ""];
+				} else {
+					newPoints[i + value_idx] = 0;
+					newPoints[i + 2] = 0;
+				}
 			}
 
             datapoints.points = newPoints;

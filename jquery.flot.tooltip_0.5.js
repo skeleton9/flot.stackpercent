@@ -186,6 +186,8 @@
 				if(sum>0)
 				{
 					series.percents.push(data[j][1]*100/sum);
+				} else {
+					series.percents.push(0);
 				}
 			}
 		}
