@@ -63,3 +63,6 @@ You may need to set options `yaxis:{max:100}` to make the yaxis is 0-100.
 It can work with another plugin called `flot.tooltip` <https://github.com/skeleton9/flot.tooltip> to easily show y value, percentage and x value.
 
 See and try examples yourself.
+
+
+jquery.flot.stackpercent is available under the MIT license.
