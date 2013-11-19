@@ -159,7 +159,7 @@
 		var adjustValPrecision = function(pattern, content, value) {
 		
 			var precision;
-			if( content.match(pattern) !== 'null' ) {
+			if( content.match(pattern) !== null ) {
 				if(RegExp.$1 !== '') {
 					precision = RegExp.$1;
 					value = value.toFixed(precision)
