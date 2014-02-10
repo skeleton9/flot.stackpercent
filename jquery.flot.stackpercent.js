@@ -76,6 +76,8 @@
             if (!processed) {
                 stackSums = getStackSums(plot.getData());
             }
+            if(s == plot.getData()[0])
+                stackBases = {};
             var newPoints = [];
 			
 			
